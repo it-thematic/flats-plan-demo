@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Display } from './Display/Display';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+  private display: Display;
+  private floorCount = 3;
+
+  ngOnInit() {
+    this.display = new Display(this.floorCount);
+  }
+
+  public switchFloor (floor: number): void {
+    this.display.switchFloor(floor);
+  }
 }
