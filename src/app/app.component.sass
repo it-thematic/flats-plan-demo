@@ -1,11 +1,14 @@
-@import '~@angular/material/prebuilt-themes/purple-green.css'
-  
+@import '~@angular/material/theming'
+@include mat-core()
+@import '~@angular/material/prebuilt-themes/purple-green'
+
 .wrapper
   width: 100vw
   height: 100vh
   position: absolute
   top: 0
   left: 0
+  background-color: #1b1b1b
 
 #floor-switcher
   width: 10vw
@@ -25,7 +28,7 @@
 
 .display_wrapper
   width: calc(60vw - 40px)
-  height: calc(75vh - 40px)
+  height: calc(90vh - 40px)
   position: absolute
   top: 0
   left: calc(10vw + 20px)
@@ -33,7 +36,7 @@
 
 #display
   width: calc(60vw - 40px)
-  height: calc(75vh - 40px)
+  height: calc(90vh - 40px)
   background-repeat: no-repeat
   background-attachment: fixed
   background-size: 100vw
@@ -43,6 +46,7 @@
   width: 100%
   height: 100%
   z-index: -1
+  border: 2px solid #6d6d6d
 
 // .floor_1
 //   background-image: url('./plans/1_floor.jpg')
@@ -55,24 +59,37 @@
 
 .display_canvas
   width: calc(60vw - 40px)
-  height: calc(75vh - 40px)
+  height: calc(90vh - 40px)
   position: fixed
   top: 20px
   left: calc(10vw + 40px)
   display: none
   z-index: 1
 
-#roles
-  width: 30vw
-  height: 25vh
-  position: absolute
-  left: 0
-  bottom: 0
-
 #messages
   width: calc(30vw - 40px)
-  height: 75vh
+  max-height: 60vh
+  position: absolute
+  right: 0
+  bottom: 0
+  padding: 20px
+
+#roles
+  width: calc(30vw - 40px)
+  // height: 75vh
   position: absolute
   top: 0
   right: 0
   padding: 20px
+
+#coords
+  width: calc(70vw - 40px)
+  height: calc(10vh - 40px)
+  padding: 20px
+  position: absolute
+  left: 0
+  bottom: 0
+
+// override core theme
+// .mat-list
+//   color: #424242 !important

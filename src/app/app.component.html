@@ -15,28 +15,43 @@
       <img class="floor-plan" src="../assets/plans/1_floor.jpg" *ngIf="currentFloor == 1">
       <img class="floor-plan" src="../assets/plans/2_floor.jpg" *ngIf="currentFloor == 2">
       <img class="floor-plan" src="../assets/plans/3_floor.jpg" *ngIf="currentFloor == 3">
-      <canvas class="display_canvas" id="canvas_1"></canvas>
-      <canvas class="display_canvas" id="canvas_2"></canvas>
-      <canvas class="display_canvas" id="canvas_3"></canvas>
+      <canvas class="display_canvas" id="canvas_1" (mousemove)="onMousemove($event, 1)"></canvas>
+      <canvas class="display_canvas" id="canvas_2" (mousemove)="onMousemove($event, 2)"></canvas>
+      <canvas class="display_canvas" id="canvas_3" (mousemove)="onMousemove($event, 3)"></canvas>
     </div>
   </div>
   <div id="roles">
-      <mat-list>
-        <h3 mat-subheader>Роли</h3>
-        <mat-list-item>
-          <mat-icon mat-list-icon>person</mat-icon>
-          <h4 mat-line>Инженер первого уровня</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>person</mat-icon>
-          <h4 mat-line>Инженер второго уровня</h4>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>person</mat-icon>
-          <h4 mat-line>Инженер третьего уровня</h4>
-        </mat-list-item>
-      </mat-list>
-
+    <mat-card>
+      <mat-card-title>
+        Роли
+      </mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <mat-icon mat-list-icon style="color: #ae52d4">person</mat-icon>
+            <h4 mat-line>Инженер первого уровня</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon style="color: #7b1fa2">person</mat-icon>
+            <h4 mat-line>Инженер второго уровня</h4>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon style="color: #4a0072">person</mat-icon>
+            <h4 mat-line>Инженер третьего уровня</h4>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div id="messages"></div>
+  <div id="messages">
+    <mat-card>
+      <mat-card-title>Сообщения</mat-card-title>
+      <mat-card-content>Нет сообщений</mat-card-content>
+    </mat-card>
+  </div>
+  <div id="coords">
+    <mat-card>
+      <mat-card-content><b>X: </b>{{ xCoord }}, <b>Y: </b>{{ yCoord }}</mat-card-content>
+    </mat-card>
+  </div>
 </div>

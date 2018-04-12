@@ -47,4 +47,16 @@ export class Display {
       this.switchFloor(1);
     }
   }
+
+  public getCoords (evt: Event | any, canvasId: number): any {
+    let _id = 'canvas_' + canvasId;
+    let _canvas = document.getElementById(_id);
+    let _rect = _canvas.getBoundingClientRect();
+    let _x = Math.round(evt.clientX - _rect.left);
+    let _y = Math.round(evt.clientY - _rect.top);
+    return {
+      xCoord: _x,
+      yCoord: _y
+    }
+  }
 }
