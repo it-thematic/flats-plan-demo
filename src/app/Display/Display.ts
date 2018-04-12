@@ -20,9 +20,11 @@ export class Display {
     this.currentFloor = floor;
     for (let i = 0; i < this.floorCount; i++) {
       if (i === floor - 1) {
-        this.cnvsLayers[i].style.display = 'block';
+        // this.cnvsLayers[i].style.display = 'block';
+        this.cnvsLayers[i].style.zIndex = '1';
       } else {
-        this.cnvsLayers[i].style.display = 'none';
+        // this.cnvsLayers[i].style.display = 'none';
+        this.cnvsLayers[i].style.zIndex = '-1';
       }
       let _btns = document.getElementsByClassName('switchBtn');
       for (let i = 0; i < _btns.length; i++) {
