@@ -9,6 +9,7 @@ import { Display } from './Display/Display';
 export class AppComponent implements OnInit {
   private display: Display;
   private floorCount = 3;
+  currentFloor = 1;
 
   ngOnInit() {
     this.display = new Display(this.floorCount);
@@ -16,5 +17,6 @@ export class AppComponent implements OnInit {
 
   public switchFloor (floor: number): void {
     this.display.switchFloor(floor);
+    this.currentFloor = floor;
   }
 }

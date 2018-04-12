@@ -1,16 +1,42 @@
 <div class="wrapper">
   <div id="floor-switcher">
-    <button (click)="switchFloor(1)">Этаж 1</button>
-    <button (click)="switchFloor(2)">Этаж 2</button>
-    <button (click)="switchFloor(3)">Этаж 3</button>
+    <div class="btn-wrapper">
+      <button class="switchBtn" mat-raised-button (click)="switchFloor(1)">Этаж 1</button>
+    </div>
+    <div class="btn-wrapper">
+      <button class="switchBtn" mat-raised-button (click)="switchFloor(2)">Этаж 2</button>
+    </div>
+    <div class="btn-wrapper">
+      <button class="switchBtn" mat-raised-button (click)="switchFloor(3)">Этаж 3</button>
+    </div>
   </div>
   <div class="display_wrapper">
     <div id="display">
+      <img class="floor-plan" src="../assets/plans/1_floor.jpg" *ngIf="currentFloor == 1">
+      <img class="floor-plan" src="../assets/plans/2_floor.jpg" *ngIf="currentFloor == 2">
+      <img class="floor-plan" src="../assets/plans/3_floor.jpg" *ngIf="currentFloor == 3">
       <canvas class="display_canvas" id="canvas_1"></canvas>
       <canvas class="display_canvas" id="canvas_2"></canvas>
       <canvas class="display_canvas" id="canvas_3"></canvas>
     </div>
   </div>
-  <div id="roles"></div>
+  <div id="roles">
+      <mat-list>
+        <h3 mat-subheader>Роли</h3>
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <h4 mat-line>Инженер первого уровня</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <h4 mat-line>Инженер второго уровня</h4>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon mat-list-icon>person</mat-icon>
+          <h4 mat-line>Инженер третьего уровня</h4>
+        </mat-list-item>
+      </mat-list>
+
+  </div>
   <div id="messages"></div>
 </div>

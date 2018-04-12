@@ -1,7 +1,7 @@
 export class Display {
   public floorCount: number;
   private displayDiv: HTMLElement;
-  private cnvsLayers: HTMLCanvasElement[];
+  private cnvsLayers: any;
   private currentFloor: number;
   private cnvsWidth: number;
   private cnvsHeight: number;
@@ -19,14 +19,20 @@ export class Display {
     if (floor < 1 || floor > this.floorCount) return;
     this.currentFloor = floor;
     for (let i = 0; i < this.floorCount; i++) {
-      if (i === floor) {
-        this.cnvsLayers[i].style.display = 'none';
+      if (i === floor - 1) {
+        this.cnvsLayers[i].style.display = 'block';
       } else {
-        this.cnvsLayers[i].style.display = '';
+        this.cnvsLayers[i].style.display = 'none';
       }
+      let _btns = document.getElementsByClassName('switchBtn');
+      for (let i = 0; i < _btns.length; i++) {
+        _btns[i].setAttribute('style', 'background-color: none')
+      }
+      _btns[floor - 1].setAttribute('style', 'background-color: purple');
     }
 
-    this.displayDiv.className = 'floor_' + floor;
+    console.log('Display switch floor ' + this.currentFloor)
+    // this.displayDiv.className = 'floor_' + floor;
     return;
   }
 
