@@ -63,10 +63,10 @@ export class Display {
 
   private setContextParams (cnvs: HTMLCanvasElement): void {
     let ctx = cnvs.getContext('2d');
-    ctx.strokeStyle = 'purple';
+    ctx.strokeStyle = '#7b1fa2';
     ctx.lineWidth = 6;
     ctx.font = '30px FontAwesome';
-    ctx.fillStyle = 'purple';
+    ctx.fillStyle = '#7b1fa2';
   }
 
   public resetCanvas (cnvsIndex: number): void {
@@ -89,9 +89,9 @@ export class Display {
   public beginTrack (): void {
     console.log(this.cnvsLayers[0].id);
     let _ctx_1 = this.cnvsLayers[0].getContext('2d');
-    _ctx_1.lineWidth = 6;
-    _ctx_1.strokeStyle = 'purple';
-    _ctx_1.font = '30px FontAwesome';
+    // _ctx_1.lineWidth = 6;
+    // _ctx_1.strokeStyle = 'purple';
+    // _ctx_1.font = '30px FontAwesome';
     // _ctx_1.moveTo(this.floor1path[0][0], this.floor1path[0][1]);
     // _ctx_1.beginPath();
     for (let i = 0; i < this.floor1path.length; i++) {
@@ -108,7 +108,7 @@ export class Display {
           _ctx_1.stroke();
         }
         _ctx_1.beginPath();
-        _ctx_1.fillStyle = 'purple';
+        // _ctx_1.fillStyle = 'purple';
         _ctx_1.moveTo(xCoord, yCoord);
         // _ctx_1.arc(xCoord, yCoord, 3, 0, Math.PI * 2);
         _ctx_1.fillText('\uf007', xCoord, yCoord);
