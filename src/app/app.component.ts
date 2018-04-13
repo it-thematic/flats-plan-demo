@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.display = new Display(this.floorCount);
+    this.display.beginTrack();
   }
 
   public switchFloor (floor: number): void {
