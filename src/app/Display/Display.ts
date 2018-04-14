@@ -139,8 +139,8 @@ export class Display {
         for (let j = 0; j < index; j++) {
           _ctx.beginPath();
           _ctx.moveTo(_translatedPath[j][0], _translatedPath[j][1]);
-          // _ctx.arc(_translatedPath[j][0], _translatedPath[j][1], 2, 0, Math.PI * 2);
-          _ctx.lineTo(_translatedPath[j + 1][0], _translatedPath[j + 1][1]);
+          _ctx.arc(_translatedPath[j][0], _translatedPath[j][1], 1.5, 0, Math.PI * 2);
+          // _ctx.lineTo(_translatedPath[j + 1][0], _translatedPath[j + 1][1]);
           _ctx.stroke();
         }
         _ctx.beginPath();
