@@ -19,20 +19,19 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.display = new Display(this.floorCount);
     this.paths = new Paths();
+    this.initTracks();
+    setInterval(() => {
+      this.initTracks();
+    }, 500 * 150);
+  }
+
+  private initTracks (): void {
     this.display.beginTrack(1, 1, this.paths.path_1_1);
     this.display.beginTrack(1, 2, this.paths.path_1_2);
     this.display.beginTrack(2, 1, this.paths.path_2_1);
     this.display.beginTrack(2, 2, this.paths.path_2_2);
     this.display.beginTrack(2, 3, this.paths.path_2_3);
     this.display.beginTrack(3, 1, this.paths.path_3_1);
-    setInterval(() => {
-      this.display.beginTrack(1, 1, this.paths.path_1_1);
-      this.display.beginTrack(1, 2, this.paths.path_1_2);
-      this.display.beginTrack(2, 1, this.paths.path_2_1);
-      this.display.beginTrack(2, 2, this.paths.path_2_2);
-      this.display.beginTrack(2, 3, this.paths.path_2_3);
-      this.display.beginTrack(3, 1, this.paths.path_3_1);
-    }, 500 * 150);
   }
 
   public switchFloor (floor: number): void {
