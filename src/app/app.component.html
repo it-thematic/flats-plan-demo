@@ -15,9 +15,12 @@
       <img class="floor-plan" src="../assets/plans/1_floor.jpg" *ngIf="currentFloor == 1">
       <img class="floor-plan" src="../assets/plans/2_floor.jpg" *ngIf="currentFloor == 2">
       <img class="floor-plan" src="../assets/plans/3_floor.jpg" *ngIf="currentFloor == 3">
-      <canvas class="display_canvas" id="canvas_1" (mousemove)="onMousemove($event, 1)"></canvas>
-      <canvas class="display_canvas" id="canvas_2" (mousemove)="onMousemove($event, 2)"></canvas>
-      <canvas class="display_canvas" id="canvas_3" (mousemove)="onMousemove($event, 3)"></canvas>
+      <canvas class="display_canvas canvas_floor1" id="canvas_1_1" (mousemove)="onMousemove($event, 'canvas_1_1')" (click)="onClick($event, 'canvas_1_1')"></canvas>
+      <canvas class="display_canvas canvas_floor1" id="canvas_1_2" (mousemove)="onMousemove($event, 'canvas_1_2')" (click)="onClick($event, 'canvas_1_2')"></canvas>
+      <canvas class="display_canvas canvas_floor2" id="canvas_2_1" (mousemove)="onMousemove($event, 'canvas_2_1')"></canvas>
+      <canvas class="display_canvas canvas_floor2" id="canvas_2_2" (mousemove)="onMousemove($event, 'canvas_2_2')"></canvas>
+      <canvas class="display_canvas canvas_floor2" id="canvas_2_3" (mousemove)="onMousemove($event, 'canvas_2_3')" (click)="onClick($event, 'canvas_2_3')"></canvas>
+      <canvas class="display_canvas canvas_floor3" id="canvas_3_1" (mousemove)="onMousemove($event, 'canvas_3_1')" (click)="onClick($event, 'canvas_3_1')"></canvas>
     </div>
   </div>
   <div id="roles">
@@ -46,7 +49,8 @@
   <div id="messages">
     <mat-card>
       <mat-card-title>Сообщения</mat-card-title>
-      <mat-card-content>Нет сообщений</mat-card-content>
+      <mat-card-content>Этаж: <b>{{ currentFloor }}</b><br>
+        Человек на этаже: <b>{{ currentPeopleCount }}</b></mat-card-content>
     </mat-card>
   </div>
   <div id="coords">

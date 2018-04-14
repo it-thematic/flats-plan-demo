@@ -1,57 +1,67 @@
 export class Display {
   public floorCount: number;
   private displayDiv: HTMLElement;
-  private cnvsLayers: any;
   private currentFloor: number;
   private cnvsWidth: number;
   private cnvsHeight: number;
-  private floor1path: number[][];
-  // private floor2path: number[][];
-  // private floor3path: number[][];
+  private cnvsScale = {
+    xScale: 1,
+    yScale: 1
+  };
 
   constructor (floors: number) {
     this.floorCount = floors;
-    this.cnvsLayers = document.getElementsByClassName('display_canvas');
     this.displayDiv = document.getElementById('display');
     this.cnvsWidth = this.displayDiv.clientWidth;
     this.cnvsHeight = this.displayDiv.clientHeight;
+    this.cnvsScale.xScale = this.cnvsWidth / 100;
+    this.cnvsScale.yScale = this.cnvsHeight / 100;
     this.switchFloor(1);
-
-    this.floor1path = [
-      [420, 250],
-      [500, 250],
-      [500, 360],
-      [600, 360],
-      [600, 300],
-      [600, 360],
-      [500, 360],
-      [500, 255],
-      [580, 255],
-      [340, 255],
-      [340, 590],
-      [640, 590],
-      [640, 710],
-      [770, 710],
-      [770, 490]
-    ];
   }
 
   public switchFloor (floor: number): void {
-    if (floor < 1 || floor > this.floorCount) return;
+    if (floor < 1 || floor > this.floorCount) { return; }
     this.currentFloor = floor;
     for (let i = 0; i < this.floorCount; i++) {
-      this.setCanvasResolution(this.cnvsLayers[i]);
-      this.setContextParams(this.cnvsLayers[i]);
-      if (i === floor - 1) {
-        this.cnvsLayers[i].style.zIndex = '1';
-      } else {
-        this.cnvsLayers[i].style.zIndex = '-1';
-      }
       let _btns = document.getElementsByClassName('switchBtn');
       for (let i = 0; i < _btns.length; i++) {
         _btns[i].setAttribute('style', 'background-color: none')
       }
-      _btns[floor - 1].setAttribute('style', 'background-color: purple');
+      _btns[floor - 1].setAttribute('style', 'background-color: #7b1fa2');
+    }
+
+    let _allCanvas = document.getElementsByClassName('display_canvas');
+    for (let i = 0; i < _allCanvas.length; i++) {
+      this.setCanvasResolution(_allCanvas[i]);
+      _allCanvas[i].setAttribute('style': 'z-index: -1');
+    }
+    let _currentCanvasClass = 'canvas_floor' + floor;
+    let _currentFloorCanvas = document.getElementsByClassName(_currentCanvasClass);
+    for (let i = 0; i < _currentFloorCanvas.length; i++) {
+      _currentFloorCanvas[i].setAttribute('style': 'z-index: 1');
+    }
+
+    switch (floor) {
+      case 1: {
+        let _cnvs_1_1 = document.getElementById('canvas_1_1');
+        let _cnvs_1_2 = document.getElementById('canvas_1_2');
+        this.setContextParams(_cnvs_1_1, 3);
+        this.setContextParams(_cnvs_1_2, 1);
+        break;
+      }
+      case 2: {
+        let _cnvs_2_1 = document.getElementById('canvas_2_1');
+        let _cnvs_2_2 = document.getElementById('canvas_2_2');
+        let _cnvs_2_3 = document.getElementById('canvas_2_3');
+        this.setContextParams(_cnvs_2_1, 3);
+        this.setContextParams(_cnvs_2_2, 2);
+        this.setContextParams(_cnvs_2_3, 1);
+        break;
+      }
+      case 3: {
+        let _cnvs_3_1 = document.getElementById('canvas_3_1');
+        this.setContextParams(_cnvs_3_1, 2);
+      }
     }
     return;
   }
@@ -61,58 +71,82 @@ export class Display {
     cnvs.setAttribute('height', this.cnvsHeight + 'px');
   }
 
-  private setContextParams (cnvs: HTMLCanvasElement): void {
+  private setContextParams (cnvs: HTMLCanvasElement, personRole: number): void {
     let ctx = cnvs.getContext('2d');
-    ctx.strokeStyle = '#7b1fa2';
-    ctx.lineWidth = 6;
-    ctx.font = '30px FontAwesome';
-    ctx.fillStyle = '#7b1fa2';
+    ctx.lineWidth = 2;
+    ctx.font = '15px FontAwesome';
+    switch (personRole) {
+      case 1: {
+        ctx.strokeStyle = ctx.fillStyle = '#ae52d4';
+        break;
+      }
+      case 2: {
+        ctx.strokeStyle = ctx.fillStyle = '#7b1fa2';
+        break;
+      }
+      case 3: {
+        ctx.strokeStyle = ctx.fillStyle = '#4a0072';
+        break;
+      }
+    }
   }
 
-  public resetCanvas (cnvsIndex: number): void {
-    let _ctx = this.cnvsLayers[cnvsIndex].getContext('2d');
+  public resetCanvas (cnvs: HTMLCanvasElement): void {
+    let _ctx = cnvs.getContext('2d');
     _ctx.clearRect(0, 0, this.cnvsWidth, this.cnvsHeight);
   }
 
-  public getCoords (evt: Event | any, canvasId: number): any {
-    let _id = 'canvas_' + canvasId;
-    let _canvas = document.getElementById(_id);
+  public getCoords (evt: Event | any, canvasId: String): any {
+    let _canvas = document.getElementById(canvasId);
     let _rect = _canvas.getBoundingClientRect();
     let _x = Math.round(evt.clientX - _rect.left);
     let _y = Math.round(evt.clientY - _rect.top);
+    return this.translateCoords(_x, _y);
+  }
+
+  public translateCoords (xV, yV): Object {
     return {
-      xCoord: _x,
-      yCoord: _y
+      xCoord: xV / this.cnvsScale.xScale,
+      yCoord: yV / this.cnvsScale.yScale
     };
   }
 
-  public beginTrack (): void {
-    console.log(this.cnvsLayers[0].id);
-    let _ctx_1 = this.cnvsLayers[0].getContext('2d');
-    // _ctx_1.lineWidth = 6;
-    // _ctx_1.strokeStyle = 'purple';
-    // _ctx_1.font = '30px FontAwesome';
-    // _ctx_1.moveTo(this.floor1path[0][0], this.floor1path[0][1]);
-    // _ctx_1.beginPath();
-    for (let i = 0; i < this.floor1path.length; i++) {
-      let x = this.floor1path[i][0];
-      let y = this.floor1path[i][1];
+  public translateCoordsBack (xW, yW): Object {
+    return {
+      xCoord: xW * this.cnvsScale.xScale,
+      yCoord: yW * this.cnvsScale.yScale
+    };
+  }
+
+  public beginTrack (floorNumber: number, canvasNumber: number, trackCoords: number[][]): void {
+    console.log('Floor: ' + floorNumber + ', engineer: ' + canvasNumber + ', length: ' + trackCoords.length);
+    let _canvasId = 'canvas_' + floorNumber + '_' + canvasNumber;
+    let _canvas = <HTMLCanvasElement> document.getElementById(_canvasId);
+    let _ctx = _canvas.getContext('2d');
+
+    let _translatedPath = [];
+    for (let i = 0; i < trackCoords.length; i++) {
+      let _coords = this.translateCoordsBack(trackCoords[i][0], trackCoords[i][1]);
+      _translatedPath[i] = [_coords['xCoord'], _coords['yCoord']];
+    }
+    for (let i = 0; i < trackCoords.length; i++) {
+      let _coords = this.translateCoordsBack(trackCoords[i][0], trackCoords[i][1]);
+      let x = _coords['xCoord'];
+      let y = _coords['yCoord'];
       let _i = i;
       setTimeout(((xCoord, yCoord, index) => () => {
-        this.resetCanvas(0);
+        this.resetCanvas(_canvas);
         for (let j = 0; j < index; j++) {
-          _ctx_1.beginPath();
-          console.log(j, this.floor1path[j][0], this.floor1path[j][1]);
-          _ctx_1.moveTo(this.floor1path[j][0], this.floor1path[j][1]);
-          _ctx_1.arc(this.floor1path[j][0], this.floor1path[j][1], 3, 0, Math.PI * 2);
-          _ctx_1.stroke();
+          _ctx.beginPath();
+          _ctx.moveTo(_translatedPath[j][0], _translatedPath[j][1]);
+          // _ctx.arc(_translatedPath[j][0], _translatedPath[j][1], 2, 0, Math.PI * 2);
+          _ctx.lineTo(_translatedPath[j + 1][0], _translatedPath[j + 1][1]);
+          _ctx.stroke();
         }
-        _ctx_1.beginPath();
-        // _ctx_1.fillStyle = 'purple';
-        _ctx_1.moveTo(xCoord, yCoord);
-        // _ctx_1.arc(xCoord, yCoord, 3, 0, Math.PI * 2);
-        _ctx_1.fillText('\uf007', xCoord, yCoord);
-        _ctx_1.stroke();
+        _ctx.beginPath();
+        _ctx.moveTo(xCoord, yCoord);
+        _ctx.fillText('\uf007', xCoord, yCoord);
+        _ctx.stroke();
       })(x, y, _i), i * 500);
     }
   }
