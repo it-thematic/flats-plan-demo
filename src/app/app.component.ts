@@ -11,10 +11,10 @@ export class AppComponent implements OnInit {
   private display: Display;
   private paths: Paths;
   private floorCount = 3;
-  private currentFloor = 1;
-  private currentPeopleCount = 2;
-  private xCoord: number;
-  private yCoord: number;
+  public currentFloor = 1;
+  public currentPeopleCount = 2;
+  public xCoord: number;
+  public yCoord: number;
 
   ngOnInit() {
     this.display = new Display(this.floorCount);
@@ -53,13 +53,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public onMousemove (evt: Event | any, canvasId: String): void {
+  public onMousemove (evt: Event | any, canvasId: string): void {
     let coords = this.display.getCoords(evt, canvasId);
     this.xCoord = coords.xCoord;
     this.yCoord = coords.yCoord;
   }
 
-  public onClick (evt: Event | any, canvasId: String): void {
+  public onClick (evt: Event | any, canvasId: string): void {
     let coords = this.display.getCoords(evt, canvasId);
     // console.log(coords);
     console.log('[' + Math.round(coords.xCoord) + ', ' + Math.round(coords.yCoord) + '],');

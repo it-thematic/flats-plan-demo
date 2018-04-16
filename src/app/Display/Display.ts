@@ -25,20 +25,20 @@ export class Display {
     for (let i = 0; i < this.floorCount; i++) {
       let _btns = document.getElementsByClassName('switchBtn');
       for (let i = 0; i < _btns.length; i++) {
-        _btns[i].setAttribute('style', 'background-color: none')
+        _btns[i].setAttribute('style', 'background-color: none');
       }
       _btns[floor - 1].setAttribute('style', 'background-color: #7b1fa2');
     }
 
-    let _allCanvas = document.getElementsByClassName('display_canvas');
+    let _allCanvas = <HTMLElement[]> Array.from(document.getElementsByClassName('display_canvas'));
     for (let i = 0; i < _allCanvas.length; i++) {
       this.setCanvasResolution(_allCanvas[i]);
-      _allCanvas[i].setAttribute('style': 'z-index: -1');
+      _allCanvas[i].setAttribute('style', 'z-index: -1');
     }
     let _currentCanvasClass = 'canvas_floor' + floor;
-    let _currentFloorCanvas = document.getElementsByClassName(_currentCanvasClass);
+    let _currentFloorCanvas = <HTMLElement[]> Array.from(document.getElementsByClassName(_currentCanvasClass));
     for (let i = 0; i < _currentFloorCanvas.length; i++) {
-      _currentFloorCanvas[i].setAttribute('style': 'z-index: 1');
+      _currentFloorCanvas[i].setAttribute('style', 'z-index: 1');
     }
 
     switch (floor) {
@@ -66,12 +66,12 @@ export class Display {
     return;
   }
 
-  private setCanvasResolution (cnvs: HTMLCanvasElement): void {
+  private setCanvasResolution (cnvs: HTMLElement): void {
     cnvs.setAttribute('width', this.cnvsWidth + 'px');
     cnvs.setAttribute('height', this.cnvsHeight + 'px');
   }
 
-  private setContextParams (cnvs: HTMLCanvasElement, personRole: number): void {
+  private setContextParams (cnvs: any, personRole: number): void {
     let ctx = cnvs.getContext('2d');
     ctx.lineWidth = 2;
     ctx.font = '15px FontAwesome';
@@ -96,7 +96,7 @@ export class Display {
     _ctx.clearRect(0, 0, this.cnvsWidth, this.cnvsHeight);
   }
 
-  public getCoords (evt: Event | any, canvasId: String): any {
+  public getCoords (evt: Event | any, canvasId: string): any {
     let _canvas = document.getElementById(canvasId);
     let _rect = _canvas.getBoundingClientRect();
     let _x = Math.round(evt.clientX - _rect.left);
